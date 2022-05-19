@@ -13,6 +13,14 @@ public class PlayerMovement : MonoBehaviour
     public float sensitivity = 20.0f;
     public float movementSpeed = 10.0f;
 
+    public Transform head;
+
+    [Header("Ground Check")]
+    public Transform groundCheckPos;
+    public float groundCheckRadius = 1.0f;
+    public bool isGrounded;
+    public LayerMask groundLayer;
+
     float keyX, keyY;
 
     float mouseX, mouseY;
@@ -44,7 +52,11 @@ public class PlayerMovement : MonoBehaviour
         cam.transform.localRotation = Quaternion.Euler(new Vector3(xRotation, yRotation, 0.0f));
         orientation.localRotation = Quaternion.Euler(new Vector3(0.0f, yRotation, 0.0f));
 
+        GroundCheck();
+
         Jump();
+
+        cam.transform.localPosition = head.localPosition;
     }
  
     private void FixedUpdate()
@@ -54,9 +66,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(jumpKey))
+        if (Input.GetKeyDown(jumpKey) && isGrounded)
         {
             rb.AddForce(transform.up * jumpHeight, ForceMode.VelocityChange);
         }
+    }
+
+    private void GroundCheck()
+    {
+        isGrounded = Physics.CheckSphere(groundCheckPos.position, groundCheckRadius, groundLayer);
     }
 }
