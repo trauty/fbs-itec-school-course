@@ -234,13 +234,19 @@ MonoBehaviour:
   orientation: {fileID: 1991387299}
   wallDistance: 0.6
   wallMinJumpHeight: 1.5
-  wallRunForce: 15
+  wallRunJumpForce: 15
   wallRunGravity: 2
   wallLayer:
     serializedVersion: 2
     m_Bits: 128
+  cam: {fileID: 330585545}
+  camTilt: 15
+  camTiltTime: 25
+  tilt: 0
   rb: {fileID: 102379618}
   isWallRunning: 0
+  isWallLeft: 0
+  isWallRight: 0
 --- !u!1 &180775485
 GameObject:
   m_ObjectHideFlags: 0
