@@ -219,6 +219,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  wallRun: {fileID: 102379620}
 --- !u!114 &102379620
 MonoBehaviour:
   m_ObjectHideFlags: 0

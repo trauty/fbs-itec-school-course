@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
         xRotation = Mathf.Clamp(xRotation, -90.0f, 90.0f);
 
-        cam.transform.localRotation = Quaternion.Euler(new Vector3(xRotation, yRotation, 0.0f));
+        cam.transform.localRotation = Quaternion.Euler(new Vector3(xRotation, yRotation));
         orientation.localRotation = Quaternion.Euler(new Vector3(0.0f, yRotation, 0.0f));
 
         GroundCheck();
