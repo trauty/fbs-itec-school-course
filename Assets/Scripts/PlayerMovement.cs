@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody rb;
+    public WallRunning wallRunScript;
     public Camera cam;
     public Transform orientation;
     public KeyCode jumpKey = KeyCode.Space;
@@ -12,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float sensitivity = 20.0f;
     public float movementSpeed = 10.0f;
+    public float extraGravity = 3.0f;
 
     public Transform head;
 
@@ -49,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
 
         xRotation = Mathf.Clamp(xRotation, -90.0f, 90.0f);
 
-        cam.transform.localRotation = Quaternion.Euler(new Vector3(xRotation, yRotation));
+        cam.transform.localRotation = Quaternion.Euler(new Vector3(xRotation, yRotation, wallRunScript.tilt));
         orientation.localRotation = Quaternion.Euler(new Vector3(0.0f, yRotation, 0.0f));
 
         GroundCheck();
@@ -61,7 +63,17 @@ public class PlayerMovement : MonoBehaviour
  
     private void FixedUpdate()
     {
-        rb.AddForce(moveDirection.normalized * movementSpeed);
+        Movement();
+    }
+
+    private void Movement()
+    {
+        if (!wallRunScript.isWallRunning)
+        {
+            rb.AddForce(Physics.gravity * extraGravity, ForceMode.Acceleration);
+        }
+
+        rb.AddForce(moveDirection.normalized * movementSpeed, ForceMode.Acceleration);
     }
 
     private void Jump()
